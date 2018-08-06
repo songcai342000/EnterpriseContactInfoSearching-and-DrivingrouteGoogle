@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Chosenuser App</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+
+    <div>
+        <h2>Find the users</h2>
+        <ul id="chosenusers"></ul>
+        <p id="theusers"></p>
+    </div>
+    <div>
+        <h2>Search by Postal number</h2>
+        <input type="text" id="postno" size="5" />
+        <input type="button" value="Search" onclick="find()" />
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        var uri = "api/Chosenusers/GetByPostal";
+        //the text will shown when the user is found
+        function formatItem(item) {
+            return "Orgno: " + item.Orgno + " Name: " + item.Name + " Address: " + item.Address + "Post No: " + item.Postno
+                + " Post District: " + item.Postdistrict + " County No: " + item.Countyno + " County: " + item.County + " Country: " + item.Country;
+        }
+
+        //find the post no
+        function find() {
+            $(document).ready(function () {
+                var Postno = $("#postno").val();
+                $.getJSON(uri + "/" + Postno)
+                    .done(function (data) {
+                        //clean the old records
+                        $('#chosenusers').empty();
+                        if (data != null) {
+                            //if there is a user, append the user information in the ul area
+                            $.each(data, function (key, item) {
+                                $('<li>', { text: formatItem(item) }).appendTo($('#chosenusers'));
+                            })
+                        }
+                        else {
+                            $("#theusers").text("No user is found");
+                        }
+                    })
+            })
+        }
+    </script>
+</body>
+</html>

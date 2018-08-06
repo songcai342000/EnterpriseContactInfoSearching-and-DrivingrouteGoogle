@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Chosenuser App</title>
+</head>
+<body>
+
+    <div>
+        <h2>Find the user</h2>
+    </div>
+    <div>
+        <h2>Search by Organization number</h2>
+        <input type="text" id="organizationno" size="5" />
+        <input type="button" value="Search" onclick="find()" />
+        <p id="thechosenuser"></p>
+    </div>
+
+    <script src="http://ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.3.min.js"></script>
+    <script>
+        //the route for searching organization numbers
+        var uri = "api/Chosenusers/GetByOrgno";
+
+        //the text of user information shown when a user is found
+        function formatItem(item) {
+            return "Orgno: " + item.Orgno + " Name: " + item.Name + " Address: " + item.Address + " Post No: " + item.Postno
+                + " Post District: " + item.Postdistrict + " County No: " + item.Countyno + " County: " + item.County + " Country: " + item.Country;
+        }
+
+        //serarch the user in the database by organization number
+        function find() {
+            var Orgno = $("#organizationno").val();
+            $.getJSON(uri + "/" + Orgno, (function (data) {
+                //if the user is found
+                if (data != null) {
+                    $("#thechosenuser").text(formatItem(data));
+                }
+                else {
+                    $("#thechosenuser").text("No user is found");
+                }
+            }))
+        }
+
+    </script>
+</body>
+</html>
