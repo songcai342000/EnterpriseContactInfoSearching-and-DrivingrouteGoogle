@@ -17,7 +17,7 @@ namespace Instrum
             //routes.MapHttpAttributeRoutes();
             routes.MapHttpRoute(name: "OrgnoApi", routeTemplate: "api/{controller}/GetByOrgno/{Orgno}", defaults: new { Orgno = System.Web.Http.RouteParameter.Optional });
             routes.MapHttpRoute(name: "PostnoApi", routeTemplate: "api/{controller}/GetByPostal/{Postno}", defaults: new { Postno = System.Web.Http.RouteParameter.Optional });
-            routes.MapHttpRoute(name: "PeriodpersitionApi", routeTemplate: "api/{controller}/GetByPeriod/{fromTime}/{toTime}");
+            routes.MapHttpRoute(name: "PeriodpositionApi", routeTemplate: "api/{controller}/GetByPeriod/{fromTime}/{toTime}");
         }
     }
 }
